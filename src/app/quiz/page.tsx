@@ -50,7 +50,7 @@ export default function QuizPage() {
   // 计时器
   useEffect(() => {
     const timer = setInterval(() => {
-      const startTime = useQuizStore.getState().startTime
+      const startTime = useQuizStore.getState().startTime ?? Date.now()
       setElapsedTime(Math.floor((Date.now() - startTime) / 1000))
     }, 1000)
 
