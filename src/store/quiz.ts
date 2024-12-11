@@ -168,23 +168,22 @@ const initialQuestions: Question[] = [
 ]
 
 const getInitialState = () => {
-  if (typeof window === 'undefined') {
-    return {
-      questions: [],
-      answers: [],
-      currentQuestion: 0,
-      startTime: null,
-      selectedOptions: []
-    }
-  }
-  
-  // 原有的初始化逻辑
-  return {
+  // 确保返回有效的初始状态
+  const baseState = {
     questions: initialQuestions,
     answers: [],
     currentQuestion: 0,
-    startTime: Date.now(),
+    startTime: null,
     selectedOptions: []
+  }
+  
+  if (typeof window === 'undefined') {
+    return baseState
+  }
+  
+  return {
+    ...baseState,
+    startTime: Date.now()
   }
 }
 

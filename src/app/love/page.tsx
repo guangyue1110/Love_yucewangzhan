@@ -1,58 +1,48 @@
 'use client'
+
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import useQuizStore from '@/store/quiz'
-import { useEffect } from 'react'
 
-export default function QuizPage() {
+export default function LovePage() {
   const router = useRouter()
-  const { 
-    questions, 
-    currentQuestion,
-    selectedOptions,
-    toggleOption,
-    submitMultipleChoice,
-    addAnswer,
-    setCurrentQuestion,
-    initStartTime 
-  } = useQuizStore()
-
+  const { questions, answers } = useQuizStore()
+  
+  // 添加数据加载状态
+  const [isLoading, setIsLoading] = useState(true)
+  
   useEffect(() => {
-    initStartTime()
-  }, [initStartTime])
-
-  const handleAnswer = (answer: string) => {
-    const question = questions[currentQuestion]
-    
-    if (question.type === '多选题') {
-      toggleOption(answer)
-    } else {
-      addAnswer({
-        questionId: question.id,
-        answer,
-        type: question.type
-      })
-      
-      if (currentQuestion === questions.length - 1) {
-        router.push('/love/result')
-      } else {
-        setCurrentQuestion(currentQuestion + 1)
-      }
+    // 确保数据已加载
+    if (!questions.length || !answers.length) {
+      router.push('/quiz')
+      return
     }
-  }
+    setIsLoading(false)
+  }, [questions, answers, router])
 
-  const handleSubmitMultiple = () => {
-    submitMultipleChoice()
-    if (currentQuestion === questions.length - 1) {
-      router.push('/love/result')
-    }
+  // 添加加载状态检查
+  if (isLoading) {
+    return <div>Loading...</div>
   }
 
   return (
     <div>
-      {/* 测试题目展示和答题逻辑 */}
-      {questions[currentQuestion].type === '多选题' && (
-        <button onClick={handleSubmitMultiple}>提交答案</button>
-      )}
+      {/* 确保在访问数据前进行检查 */}
+      {questions.map((question) => {
+        const answer = answers.find(a => a.questionId === question.id)
+        if (!question || !answer) return null
+        
+        return (
+          <div key={question.id}>
+            <h3>{question.title}</h3>
+            <p>
+              {Array.isArray(answer.answer) 
+                ? answer.answer.join(', ')
+                : answer.answer}
+            </p>
+          </div>
+        )
+      })}
     </div>
   )
 } 
