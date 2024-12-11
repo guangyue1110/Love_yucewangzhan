@@ -1,15 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
-  rewrites: async () => {
-    return [
-      {
-        source: '/result',
-        destination: '/quiz/result',
-      },
-    ]
-  },
+  swcMinify: true,
 }
 
 module.exports = nextConfig
