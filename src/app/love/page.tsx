@@ -18,7 +18,7 @@ export default function QuizPage() {
 
   useEffect(() => {
     initStartTime()
-  }, [])
+  }, [initStartTime])
 
   const handleAnswer = (answer: string) => {
     const question = questions[currentQuestion]
