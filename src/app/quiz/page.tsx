@@ -49,12 +49,14 @@ export default function QuizPage() {
 
   // 计时器
   useEffect(() => {
-    const timer = setInterval(() => {
-      const startTime = useQuizStore.getState().startTime ?? Date.now()
-      setElapsedTime(Math.floor((Date.now() - startTime) / 1000))
-    }, 1000)
+    if (typeof window !== 'undefined') {
+      const timer = setInterval(() => {
+        const startTime = useQuizStore.getState().startTime ?? Date.now()
+        setElapsedTime(Math.floor((Date.now() - startTime) / 1000))
+      }, 1000)
 
-    return () => clearInterval(timer)
+      return () => clearInterval(timer)
+    }
   }, [])
 
   // 格式化时间显示
@@ -66,7 +68,7 @@ export default function QuizPage() {
 
   // 处理退出
   const handleExit = () => {
-    if (confirm('确定要退出测试吗？已答题目将会保存哦 💝')) {
+    if (typeof window !== 'undefined' && confirm('确定要退出测试吗？已答题目将会保存哦 💝')) {
       localStorage.setItem('draftAnswers', JSON.stringify(answers))
       router.push('/')
     }

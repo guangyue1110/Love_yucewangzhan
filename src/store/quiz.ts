@@ -167,13 +167,29 @@ const initialQuestions: Question[] = [
   }
 ]
 
-const useQuizStore = create<QuizState>((set) => ({
-  questions: initialQuestions,
-  answers: [],
-  currentQuestion: 0,
-  startTime: typeof window === 'undefined' ? null : Date.now(),
-  selectedOptions: [],
+const getInitialState = () => {
+  if (typeof window === 'undefined') {
+    return {
+      questions: [],
+      answers: [],
+      currentQuestion: 0,
+      startTime: null,
+      selectedOptions: []
+    }
+  }
+  
+  // 原有的初始化逻辑
+  return {
+    questions: initialQuestions,
+    answers: [],
+    currentQuestion: 0,
+    startTime: Date.now(),
+    selectedOptions: []
+  }
+}
 
+const useQuizStore = create<QuizState>((set) => ({
+  ...getInitialState(),
   setQuestions: (questions) => set({ questions }),
   
   setCurrentQuestion: (index) => set({ 
