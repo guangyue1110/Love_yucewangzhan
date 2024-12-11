@@ -7,7 +7,7 @@ const nextConfig = {
       {
         source: '/result',
         destination: '/quiz/result',
-      },
+      }
     ]
   }
 }
