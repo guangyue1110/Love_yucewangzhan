@@ -131,62 +131,16 @@ export default function QuizPage() {
           </span>
         </div>
 
-        {/* 进度条 - 使用可爱元素 */}
+        {/* 进度条 */}
         <div className="mb-8">
           <div className="relative h-3 bg-gray-100 rounded-full overflow-hidden">
-            {/* 进度条背景 */}
             <div 
-              className="absolute inset-y-0 left-0 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-700 ease-in-out"
+              className="absolute inset-y-0 left-0 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
-            {/* 装饰元素 - 减少数量并调整间距 */}
-            <div className="absolute inset-0 flex items-center justify-between px-1">
-              {Array.from({ length: 10 }).map((_, index) => ( // 减少装饰点的数量
-                <div
-                  key={index}
-                  className={cn(
-                    "w-1.5 h-1.5 rounded-full transition-all duration-500", // 调整点的大小
-                    index < (progress / 100 * 10)
-                      ? "bg-white/50 scale-100"
-                      : "bg-transparent scale-0"
-                  )}
-                />
-              ))}
-            </div>
-            {/* 移动的爱心 - 优化动画和位置 */}
-            <div 
-              className="absolute top-1/2 -translate-y-1/2 transition-all duration-700"
-              style={{ 
-                left: `${progress}%`,
-                transform: `translate(-50%, -50%) scale(${progress > 0 ? 1 : 0})` // 添加缩放效果
-              }}
-            >
-              <div className="relative text-sm animate-bounce" style={{ animationDuration: '2s' }}> {/* 调整动画时间 */}
-                <span className="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs text-pink-500 font-medium">
-                  {Math.round(progress)}%
-                </span>
-                <span className="text-pink-500">❤️</span>
-              </div>
-            </div>
           </div>
-          
-          {/* 进度信息 */}
-          <div className="mt-3 flex items-center justify-between text-sm"> {/* 增加上边距 */}
-            <span className="text-gray-500 flex items-center gap-1.5"> {/* 调整图标间距 */}
-              <span className="text-pink-400">💌</span> 
-              第 {currentQuestion + 1} 题 / 共 {questions.length} 题
-            </span>
-            <div className="flex items-center gap-2"> {/* 调整元素间距 */}
-              <span className="text-pink-500 font-medium">
-                {Math.round(progress)}%
-              </span>
-              <span className="text-gray-500">完成啦</span>
-              {progress > 0 && progress < 100 && (
-                <span className="text-gray-400 text-xs"> {/* 调整字体大小 */}
-                  (还有 {questions.length - (answers?.length || 0)} 题哦)
-                </span>
-              )}
-            </div>
+          <div className="mt-2 text-sm text-gray-500">
+            进度: {Math.round(progress)}%
           </div>
         </div>
 

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import Link from 'next/link'
 
 export default function HomePage() {
   const router = useRouter()
@@ -24,12 +25,12 @@ export default function HomePage() {
           欢迎来到爱情测试
         </h1>
         <div className="text-center">
-          <button
-            onClick={() => router.push('/quiz')}
-            className="bg-pink-500 text-white px-8 py-3 rounded-full hover:bg-pink-600 transition-colors"
+          <Link 
+            href="/quiz"
+            className="inline-block bg-pink-500 text-white px-8 py-3 rounded-full hover:bg-pink-600 transition-colors"
           >
             开始测试
-          </button>
+          </Link>
         </div>
       </div>
     </main>
