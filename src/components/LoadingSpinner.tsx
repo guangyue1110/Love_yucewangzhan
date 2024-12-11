@@ -1,25 +1,16 @@
 'use client'
 
-import { FC } from 'react'
-import { cn } from '@/lib/utils'
-
 interface LoadingSpinnerProps {
   className?: string
 }
 
-const LoadingSpinner: FC<LoadingSpinnerProps> = ({ className }) => {
+export default function LoadingSpinner({ className }: LoadingSpinnerProps) {
   return (
-    <div
-      className={cn(
-        'inline-block border-4 border-current border-t-transparent rounded-full animate-spin',
-        className
-      )}
-      role="status"
-      aria-label="加载中"
-    >
-      <span className="sr-only">加载中...</span>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <div className={`animate-spin rounded-full border-t-2 border-b-2 border-pink-500 mx-auto ${className}`}></div>
+        <p className="mt-4 text-gray-600">Loading...</p>
+      </div>
     </div>
   )
-}
-
-export default LoadingSpinner 
+} 
