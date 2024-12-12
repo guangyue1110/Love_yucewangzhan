@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font'
 import './globals.css'
-import Providers from './providers'
 
 export const metadata: Metadata = {
   title: '遇见心动，相守一生',
@@ -15,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh">
-      <body>
+      <body className={GeistSans.className}>
         {children}
       </body>
     </html>

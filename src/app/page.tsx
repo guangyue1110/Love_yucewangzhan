@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { motion } from 'framer-motion'
+import { Hero } from '@/components/Hero/Hero'
+import { Steps } from '@/components/Steps'
 import LoadingSpinner from '@/components/LoadingSpinner'
-import Link from 'next/link'
 
 export default function HomePage() {
   const router = useRouter()
@@ -13,26 +15,23 @@ export default function HomePage() {
     setMounted(true)
   }, [])
 
-  // 使用独立的加载组件
   if (!mounted) {
     return <LoadingSpinner />
   }
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-pink-50 to-purple-50">
-      <div className="max-w-4xl mx-auto px-4 py-16">
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
-          欢迎来到爱情测试
-        </h1>
-        <div className="text-center">
-          <Link 
-            href="/quiz"
-            className="inline-block bg-pink-500 text-white px-8 py-3 rounded-full hover:bg-pink-600 transition-colors"
-          >
-            开始测试
-          </Link>
-        </div>
-      </div>
+      <Hero>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="mt-8 px-8 py-3 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 text-white text-lg font-medium shadow-lg hover:shadow-xl transition-all"
+          onClick={() => router.push('/quiz')}
+        >
+          开始测试 💝
+        </motion.button>
+      </Hero>
+      <Steps />
     </main>
   )
 }

@@ -864,7 +864,6 @@ export default function ResultPage() {
     </main>
   )
 }
-
 // 辅助函数：根据类别返回对应的表情
 function getCategoryEmoji(category: string) {
   switch (category) {
